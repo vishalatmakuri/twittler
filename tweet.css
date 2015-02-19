@@ -1,0 +1,123 @@
+body{
+	background-color:  	#E1E1E1 ;
+	text-align:center;
+}
+div{
+	background-color: white;
+	display: block;
+	width: 100%;
+	height: 60px;
+	margin-right: auto;
+	margin-left: auto;
+
+	
+
+}	
+p{
+	margin:auto;
+	margin-left: 15px;
+	text-align: left;
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.head{
+	text-align:left;
+	overflow:hidden;
+	background-color: black;
+
+}
+#logo{
+	height:100%;
+	display: inline;
+	margin: auto;
+
+
+}
+.button{
+	background-color: #0965F0;
+	height: 70%;
+	width: 10%;
+	display:inline;
+	text-align: center;
+	float: right;
+	margin-top: 5px;
+	}
+.textbutton{
+	color: white;
+	font-size: 30px;
+	margin-left: 25%;
+	font-weight: bold;
+}
+.bann{
+	background-color: #0965F0;
+	height: 150px;
+
+}
+.menu{
+	display: inline-block;
+	background-color: #0965F0 ;
+	height: 688px;
+	width: 24%;
+	float:left;
+	margin-right: -20%;
+}
+#profileimage{
+	height: 25%;
+	width: 60%;
+	margin-top: 5%;
+	margin-bottom: 10%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.nav{
+	font-family: 'Paytone One', sans-serif;
+	background-color:black;
+	border-top: 3px white solid;
+	border-bottom: 3px white solid;
+	margin-bottom: 20%;
+	color: white;
+}
+#tweetbox{
+	display: inline-block;
+	width: 48%;
+	height: 688px;
+	margin-right: -5%;
+	margin-left: -5%;
+	overflow: hidden;
+}
+
+.name{
+	font-family: 'Merriweather Sans', sans-serif;
+	font-size: 10px;
+}
+.name:hover{
+	color:blue;
+	cursor: pointer; cursor: hand;
+}
+.message{
+	font-family: 'Open Sans Condensed', sans-serif;
+
+}
+
+.tweets{
+	border-bottom: 1px solid #D3D4E6 ;
+}
+.new_tweet {
+	height:0px;
+	border-bottom: 1px solid #D3D4E6 ;
+	
+}
+#userdiv{
+	display: inline-block;
+	width: 30%;
+	height: 688px;
+	float:right;
+	margin-left:-20%;
+	overflow: hidden;
+}
+
+.foot{
+	margin-top: 0%;
+	background-color: #0965F0;
+
+}

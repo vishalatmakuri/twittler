@@ -3,25 +3,118 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" type="text/css" href="tweet.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'>
   </head>
   <body>
+    <div class='head'>
+      <img src="img/twitter-32.png" id="logo">
+      <div class='button'><p class='textbutton'>Login</p></div>
+    </div>
+    <div class='bann'></div>
+    <div class= 'menu'>
+      <div id="profileimage"></div>
+      <div class= 'nav'>Home</div>
+      <div class= 'nav'>Friends</div>
+      <div class= 'nav'>Settings</div>
+    </div>
+    <div id="tweetbox"></div>
+    <div id="userdiv"></div>
+    <div class= 'foot'></div>
     <script>
 
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+        var $holder = $('#tweetbox');
+        $holder.html('');
 
         var index = streams.home.length - 1;
+    //code goes here that will be run every 5 seconds.    
+        var getTime= function(time){
+          var currentDate = new Date(time.getTime() + 24 * 60 * 60 * 1000);
+          var day = currentDate.getDate();
+          if (day<10){day = "0"+day;};
+          var month = currentDate.getMonth() + 1;
+          var year = currentDate.getFullYear();
+          var hour= new Date().getHours();
+          if (hour<10){hour = "0"+hour;};
+          var min =new Date().getMinutes();
+          if (min<10){min = "0"+min;};
+          var str =  day+'/'+month+'/'+year +"   "+hour+":"+min;
+          return str.toString();
+        };
+        var tweetsSoFar= index;
         while(index >= 0){
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
+          var $tweet = $('<div class= "tweets"></div>');
+          var $name= $('<p class="name" data-user="'+tweet.user+'"></p>');
+          var $message= $('<p class="message"></p>');
+          var time= getTime(tweet.created_at) ;
+          $name.text('@' + tweet.user +':        '+time);
+          $message.text(tweet.message);
+          var button
+          $name.appendTo($tweet);
+          $message.appendTo($tweet);
+          $tweet.appendTo($holder);
           index -= 1;
         }
 
+
+        setInterval(function(){
+             
+              if(tweetsSoFar< (streams.home.length-1)){
+
+                var temp= (streams.home.length-1)-tweetsSoFar;
+                tweetsSoFar +=temp;
+                while(temp>0){  
+                  var tweet = streams.home[streams.home.length-1-temp];
+                  var $tweet = $('<div class="new_tweet"></div>');
+                  var $name= $('<p class="name" data-user="'+tweet.user+'"></p>');
+                  var $message= $('<p class="message"></p>');
+                  var time=getTime(tweet.created_at) ;
+                  $name.text('@' + tweet.user + ':        '+time);
+                  $message.text(tweet.message);
+                  $name.appendTo($tweet);
+                  $message.appendTo($tweet);
+                  $holder.prepend($tweet);
+
+                  $('#tweetbox div:last-child').remove();
+                  temp-=1;
+                }
+                $('.new_tweet').animate({'height': '60px'},'slow'); 
+              }
+
+         }, 3000);
+         var userTweets= function(user, holder){
+            holder.empty();
+            var c = 10;
+            holder.prepend($('<div class= "tweets"><p class="name" style= >@' + user +'`s recent tweets</p></div>'))
+            for(var x in streams.users[user]){
+              var tweet = streams.users[user][x];
+              var $tweet = $('<div class= "tweets"></div>');
+              var $name= $('<p class="name"></p>');
+              var $message= $('<p class="message"></p>');
+              var time= getTime(tweet.created_at) ;
+              $name.text('@' + user +':        '+time);
+              $message.text(tweet.message);
+              $name.appendTo($tweet);
+              $message.appendTo($tweet);
+              holder.append($tweet);
+              if (c<=0){break;}
+              c-=1;
+            }
+         };
+
+        $('div').on("click",'.name',function() {  
+          var theuser = $(this).data("user");
+          var floatdiv= $('#userdiv');
+          userTweets(theuser,floatdiv);
+        });
+
       });
 
+       
     </script>
   </body>
 </html>
